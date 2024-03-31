@@ -9,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Community.Extensions.Spectre.Cli.Hosting" Version="1.*" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.*" />
+    <PackageReference Include="Community.Extensions.Spectre.Cli.Hosting" Version="1.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="8.0.0" />
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.6.3" />
-    <PackageReference Include="Spectre.Console" Version="0.*" />
+    <PackageReference Include="Spectre.Console" Version="0.48" />
   </ItemGroup>
 
   <ItemGroup>

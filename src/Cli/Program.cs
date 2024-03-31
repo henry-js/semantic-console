@@ -1,5 +1,4 @@
-﻿
-using Community.Extensions.Spectre.Cli.Hosting;
+﻿using Community.Extensions.Spectre.Cli.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,8 +9,9 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using semantic_console.Cli.Commands;
 using semantic_console.Lib.SemanticKernelSettings;
-using semantic_console.Lib.Services;
 using Spectre.Console.Cli;
+using semantic_console.Lib.Extensions;
+
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -26,16 +26,18 @@ builder.Logging.ClearProviders();
 builder.Services.AddOptions<NestedSettings>()
     .Bind(builder.Configuration.GetSection(NestedSettings.Key));
 
-builder.Services.AddOptions<OpenAI>()
-    .Bind(builder.Configuration.GetSection(OpenAI.Key))
-    .ValidateDataAnnotations()
-    .ValidateOnStart();
+builder.Services.AddOpenAIChatService(builder.Configuration.GetSection(OpenAIOptions.Key));
 
-builder.Services.AddSingleton<IChatCompletionService>(sp =>
-{
-    OpenAI options = sp.GetRequiredService<IOptions<OpenAI>>().Value;
-    return new OpenAIChatCompletionService(options.ChatModelId, options.ApiKey);
-});
+// builder.Services.AddOptions<OpenAI>()
+//     .Bind(builder.Configuration.GetSection(OpenAI.Key))
+//     .ValidateDataAnnotations()
+//     .ValidateOnStart();
+
+// builder.Services.AddSingleton<IChatCompletionService>(sp =>
+// {
+//     OpenAI options = sp.GetRequiredService<IOptions<OpenAI>>().Value;
+//     return new OpenAIChatCompletionService(options.ChatModelId, options.ApiKey);
+// });
 
 // Add semantic kernel Kernel
 builder.Services.AddTransient<Kernel>();
