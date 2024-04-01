@@ -31,7 +31,6 @@ public partial class ChatWindow : Window
             // Fill remaining horizontal space
             Width = Dim.Fill(),
             Height = Dim.Fill(),
-            ReadOnly = true,
         };
         inputFrame.Add(inputArea);
 
@@ -46,6 +45,7 @@ public partial class ChatWindow : Window
         {
             Width = Dim.Fill(),
             Height = Dim.Fill(),
+            ReadOnly = true,
         };
 
         messageViewFrame.Add(messages);
