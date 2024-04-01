@@ -2,22 +2,28 @@ using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using semantic_console.Lib.Chat;
 using semantic_console.Lib.SemanticKernelSettings;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
 namespace semantic_console.Cli.Commands;
 
-public class HelloCommand(IAnsiConsole ansiConsole, IOptions<OpenAIOptions> openAIOptions, Kernel kernel) : AsyncCommand<HelloCommand.Settings>
+public class HelloCommand(IAnsiConsole ansiConsole, IOptions<OpenAIOptions> openAIOptions, Kernel kernel, ChatApp chatApp) : AsyncCommand<HelloCommand.Settings>
 {
     private readonly IAnsiConsole _console = ansiConsole;
     private readonly Kernel _kernel = kernel;
+    private readonly ChatApp _chatApp = chatApp;
     private readonly OpenAIOptions _openAI = openAIOptions.Value;
     private ChatHistory _history = [];
 
     public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
     {
+        _chatApp.Start();
+
+
         var chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
+
 
         _console.Markup("[blue]User > [/]");
         string? userInput;
